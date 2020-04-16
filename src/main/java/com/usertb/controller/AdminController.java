@@ -37,7 +37,7 @@ public class AdminController {
 		boolean b = adminService.adminJudge(admin);
 		if (b){
 			map.put("error",0);
-			return map;
+			return map;//2222
 		}
 		map.put("error",-1);
 		return map;
