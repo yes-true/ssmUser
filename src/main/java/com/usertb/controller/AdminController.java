@@ -43,6 +43,11 @@ public class AdminController {
 		return map;
 	}
 
+	/**
+	 * 管理员首页
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/userList")
 	public String adminHone(Model model){
 		Page page = new Page();
