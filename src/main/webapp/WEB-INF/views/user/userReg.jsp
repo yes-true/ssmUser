@@ -42,7 +42,7 @@
                 <span><div><font id="f2" color=""></font></div></span>
                 <br/>
                 <button id="b1" type="submit" class="btn btn-success btn-block">注册</button>
-                <font color="">已有账号，去<a href="${pageContext.request.contextPath}/userlogin" style="text-decoration: blink;" >登陆</a>？</font>
+                <font color="">已有账号，去<a href="${pageContext.request.contextPath}/userLogin" style="text-decoration: blink;" >登陆</a>？</font>
             </div>
         </div>
     </div>

@@ -4,11 +4,8 @@ import com.usertb.dao.DatumDao;
 import com.usertb.dao.RightcontrolDao;
 import com.usertb.dao.UserDao;
 import com.usertb.entity.Datum;
-import com.usertb.entity.Page;
 import com.usertb.entity.User;
 import com.usertb.service.UserService;
-import com.usertb.utility.randomString;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -107,8 +104,12 @@ public class UserServiceImpl implements UserService {
 		return userDao.updateUser(userById)+datumDao.updateDatum(userById.getDatum());
 	}
 
-	public List<User> listPageUsers(Page page) {
-		return userDao.listUser(page);
+	public Integer updatePhoto(String photo,int id) {
+		return datumDao.updatePhoto(photo,id);
+	}
+
+	public List<User> listPageUsers(int currentPage, int pageSize) {
+		return userDao.listUser(currentPage, pageSize);
 	}
 
 	public int getUsers() {

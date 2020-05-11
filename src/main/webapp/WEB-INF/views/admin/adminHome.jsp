@@ -36,11 +36,54 @@
                 <button id="b2">上一页</button>
                 <button id="b3">下一页</button>
                 <button id="b4">尾页</button>
+                ${users.currentPage+1}/${users.totalPages}/总数据${users.totalUsers}
             </td>
         </tr>
     </table>
+    <input type="hidden" id="pageContext" value="${pageContext.request.contextPath}">
+    <input type="hidden" id="currentPage" value="${users.currentPage}">
+    <input type="hidden" id="pageSize" value="${users.pageSize}">
+    <input type="hidden" id="tail" value="${users.totalPages}">
 <script>
-
+    $(function () {
+        pageContext = $('#pageContext').val();
+        currentPage = $('#currentPage').val();
+        pageSize = $('#pageSize').val();
+        tail = $('#tail').val()
+        console.log("currentPage=%s,pageSize=%s,tail=%s",currentPage,pageSize,tail);
+        if (currentPage == 0){
+            $('#b1').attr('disabled',true);
+            $('#b2').attr('disabled',true);
+        }
+        if (currentPage == tail-1 ){
+            $('#b3').attr('disabled',true);
+            $('#b4').attr('disabled',true);
+        }
+        /**
+         * 首页
+         */
+        $('#b1').click(function () {
+            window.location.href = pageContext+"/userList?cp="+0+"&ps="+pageSize;
+        })
+        /**
+         * 上一页
+         */
+        $('#b2').click(function () {
+            window.location.href = pageContext+"/userList?cp="+(currentPage-1)+"&ps="+pageSize;
+        })
+        /**
+         * 下一页
+         */
+        $('#b3').click(function () {
+            window.location.href = pageContext+"/userList?cp="+currentPage+1+"&ps="+pageSize;
+        })
+        /**
+         * 尾页
+         */
+        $('#b4').click(function () {
+            window.location.href = pageContext+"/userList?cp="+(tail-1)+"&ps="+pageSize;
+        })
+    })
 </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 package com.usertb.controller;
+import	java.util.UUID;
 
 import com.usertb.entity.Datum;
 import com.usertb.entity.Param;
@@ -16,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -219,6 +222,50 @@ public class UserController {
 	public Map saveSite(@RequestBody Site site){
 		int i = siteService.saveSite(site);
 		return getMap(i);
+	}
+
+	/**
+	 * 头像上传
+	 * @param file 图片
+	 * @param user_id  该用户id
+	 * @param map
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/upload_img", method = RequestMethod.POST)
+	@ResponseBody
+	public Map uploadImg(@RequestParam("img") MultipartFile file,
+	                     @RequestParam("user_id") int user_id,
+	                     Map<String,Integer> map,
+	                     HttpServletRequest request){
+		//获取上传路径（Tomcat的路径）
+		String path = request.getSession().getServletContext().getRealPath("static/img/");
+		//获取文件名（包括后缀）
+		String filename = file.getOriginalFilename();
+		//获取文件后缀
+		String fileType = filename.substring(filename.lastIndexOf(".") + 1);
+		//重新
+		String newName = UUID.randomUUID().toString() + "." + fileType;
+
+		File uploadFile = new File(path+newName);
+		try {
+			//上传文件
+			file.transferTo(uploadFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		map.put("error",0);
+
+		String oldphoto = userService.getUserById(user_id).getDatum().getPhoto();
+		if (oldphoto != null || oldphoto != ""){
+			new File(path + oldphoto).delete();
+		}
+
+		int i = userService.updatePhoto(newName,user_id);
+		if (i == 0){
+			map.put("error",-1);
+		}
+		return map;
 	}
 
 }

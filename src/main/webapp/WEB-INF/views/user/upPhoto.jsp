@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: LongGuoShuai
-  Date: 2020/4/1
-  Time: 15:11
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,36 +7,49 @@
 </head>
 <body>
 
-<input type="file" οnchange="imageUpload(this)" class="form-control" placeholder="点击按钮选择图片"id="pictureUpload">
+<form enctype="multipart/form-data" id="upload">
+    <input type="file" name="photo" id="pic_img" />
+    <input type="hidden" name="user_id" id="user_id" value="${user.id}">
+    <input type="button" onclick="upload()" value="点击上传"/>
+</form>
+<input type="hidden" id="path" value="${pageContext.request.contextPath}" />
 <script>
-    function imageUpload(obj) {
-        //判断图片格式
-        var fileName=obj.value;
-        var suffixIndex=fileName.lastIndexOf(".");
-        var suffix=fileName.substring(suffixIndex+1).toUpperCase();
-        if(suffix!="BMP"&&suffix!="JPG"&&suffix!="JPEG"&&suffix!="PNG"&&suffix!="GIF"){
-            layer.msg( "请上传图片（格式BMP、JPG、JPEG、PNG、GIF等）!");
-            var file = $("#pictureUpload");
-            file.after(file.clone().val(""));
-            file.remove();
-            return;
+
+    function upload() {
+        var path = $('#path').val();
+        var id = $('#user_id').val();
+        var formData = new FormData($('#upload')[0]);
+        formData.append('img',$('#pic_img')[0].files[0]);
+        formData.append('user_id',$('#user_id').val());
+        if($('#pic_img').val() == ''){
+            alert("不能为空");
+            return false;
         }
-
-        var formData = new FormData();
-        formData.append('file', $('#pictureUpload')[0].files[0]);  //添加图片信息的参数
         $.ajax({
-            type: "POST",
-            url: "/fileUploadPage.do",
-            data:formData,
-            cache: false, //上传文件不需要缓存
-            processData: false,// 告诉jQuery不要去处理发送的数据
-            contentType: false,// 告诉jQuery不要去设置Content-Type请求头
-            encType:"multipart/form-data",
-            success: function(data) {
-                alert(data)
-            }
-        });
+            type : "post",
+            url : path+"/upload_img",
+            dataType : "json",
+            data : formData,
+            async : false,
+            //上传文件不需要缓存
+            cache : false,
+            contentType : false,
+            processData : false,
+            success : function (data) {
+                if (data.error != 0){
+                    alert("上传失败");
+                    return false;
+                }else{
+                    window.location.href = path+"/udatum?userid="+id;
+                }
 
+            },
+            error : function () {
+                //alert("连接失败");
+                window.location.href = path+"/udatum?userid="+id;
+                //return false;
+            }
+        })
     }
 </script>
 </body>

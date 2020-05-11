@@ -81,7 +81,7 @@
     <div class="row row-centered">
         <div class="well col-md-6 col-centered">
             <div id="d1">
-                <img src="${pageContext.request.contextPath}/${user.datum.photo}" alt="头像" class="img-circle" onclick="updatePhoto()" />
+                <img src="${pageContext.request.contextPath}/static/img/${user.datum.photo}" style="height: 150px;width: 150px;" alt="头像" class="img-circle" onclick="updatePhoto()" />
             </div>
             <span class="input-group-addon">
             	<i>欢迎${user.menbername}!!！</i>

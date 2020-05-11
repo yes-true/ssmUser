@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 
 @Service("siteService")
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class SiteServiceImpl implements SiteService {
 
 	@Resource

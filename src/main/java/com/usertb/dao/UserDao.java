@@ -42,7 +42,7 @@ public interface UserDao {
 		@Result(property = "datum", column = "id",
 		one = @One(select = "com.usertb.dao.DatumDao.getDatumByUid", fetchType = FetchType.LAZY))
 	})
-	User getUserById(@Param("id") Integer id);
+	User getUserById(@Param(value = "id") Integer id);
 
 	@Insert("insert into tb_user values (#{id},#{menbername},#{password},#{phone},#{email},#{atime},#{utime})")
 	int saveUser(User user);
@@ -57,7 +57,14 @@ public interface UserDao {
 	@Select("select id from tb_user where phone = #{phone} or email = #{email} or menbername = #{menbername}")
 	Integer getUserByPhoneOrEmailOrmenbername(User user);
 
-	@Select("select * from tb_user limit #{currentPage},#{pageSize}")
+	/**
+	 * 分页查询 user
+	 * select * from 表名 limit 页数*页面大小,页面大小;
+	 * @param currentPage 页数*页面大小
+	 * @param pageSize 页面大小
+	 * @return
+	 */
+	@Select("select * from tb_user limit ${currentPage},#{pageSize}")
 	@Results({
 			@Result(property = "id",column = "id",javaType = Integer.class),
 
@@ -70,7 +77,7 @@ public interface UserDao {
 			@Result(property = "datum", column = "id",
 					one = @One(select = "com.usertb.dao.DatumDao.getDatumByUid", fetchType = FetchType.LAZY))
 	})
-	List<User> listUser(Page page);
+	List<User> listUser(@Param(value = "currentPage") int currentPage,@Param(value = "pageSize") int pageSize);
 
 	@Select("select count(*) from tb_user")
 	int getUsers();

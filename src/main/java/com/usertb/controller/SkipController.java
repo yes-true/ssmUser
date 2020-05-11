@@ -32,7 +32,7 @@ public class SkipController {
 	 * 跳转用户登录
 	 * @return
 	 */
-	@RequestMapping("/userlogin")
+	@RequestMapping(value = "/userLogin")
 	public String jumIndex(){
 		return "user/userLogin";
 	}
@@ -41,7 +41,7 @@ public class SkipController {
 	 * 跳转用户注册
 	 * @return
 	 */
-	@RequestMapping("/userReg")
+	@RequestMapping(value = "/userReg")
 	public String jumUserReg(){
 		return "user/userReg";
 	}
@@ -52,7 +52,7 @@ public class SkipController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/updateUserDatum")
+	@RequestMapping(value = "/updateUserDatum")
 	public String jumUpdateUser(@RequestParam("uid") Integer id, Model model){
 		model.addAttribute("user",userService.getUserById(id));
 		return "user/userUpdate";
@@ -80,22 +80,6 @@ public class SkipController {
 	public String jumUpdateUserStie(@RequestParam("uid") Integer id, Model model){
 		model.addAttribute("user",userService.getUserById(id));
 		return "user/site";
-	}
-
-	@RequestMapping(value = "/fileUploadPage.do", method = RequestMethod.POST)
-	@ResponseBody
-	public String upload(HttpServletRequest req) throws Exception{
-		MultipartHttpServletRequest mreq = (MultipartHttpServletRequest)req;
-		MultipartFile file = mreq.getFile("file");
-		String fileName = file.getOriginalFilename();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		String name=req.getSession().getServletContext().getRealPath("/")+
-				"upload\\"+sdf.format(new Date())+fileName.substring(fileName.lastIndexOf('.'));
-		FileOutputStream fos = new FileOutputStream(name);
-		fos.write(file.getBytes());
-		fos.flush();
-		fos.close();
-		return name;
 	}
 
 	/**

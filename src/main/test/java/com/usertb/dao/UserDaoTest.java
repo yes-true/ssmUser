@@ -77,10 +77,7 @@ public class UserDaoTest {
 
 	@Test
 	public void listuser(){
-		Page page = new Page();
-		page.setCurrentPage(0);
-		page.setPageSize(5);
-		List<User> users = userDao.listUser(page);
+		List<User> users = userDao.listUser(2*5,5);
 		for (User user: users) {
 			System.out.println("user = " + user);
 		}

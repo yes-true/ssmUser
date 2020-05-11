@@ -18,7 +18,12 @@ public class DatumDaoTest {
 	
 	@Test
 	public void getDatum(){
-		Datum datum = datumDao.getDatumByUid(1);
+		Datum datum = datumDao.getDatumByUid(2);
 		System.out.println("datum.toString() = " + datum.toString());
+	}
+
+	@Test
+	public void updatePhoto(){
+		datumDao.updatePhoto("123546456", 1);
 	}
 }

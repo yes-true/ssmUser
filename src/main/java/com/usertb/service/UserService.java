@@ -42,10 +42,20 @@ public interface UserService {
 	Integer updateUser(User user);
 
 	/**
-	 * 分页查询所有
+	 * 修改头像
+	 * @param photo 头像名
+	 * @param id 用户ID
 	 * @return
 	 */
-	List<User> listPageUsers(Page page);
+	Integer updatePhoto(String photo, int id);
+
+	/**
+	 * 分页查询所有用户
+	 * @param currentPage 页数*页面大小
+	 * @param pageSize 页面大小
+	 * @return
+	 */
+	List<User> listPageUsers(int currentPage, int pageSize);
 
 	/**
 	 * 查询用户总数据

@@ -7,9 +7,7 @@ import com.usertb.service.AdminService;
 import com.usertb.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -49,12 +47,14 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value = "/userList")
-	public String adminHone(Model model){
+	public String adminHome(Model model,
+	                        @RequestParam(value = "cp",defaultValue = "0") int currentPage,
+	                        @RequestParam(value = "ps",defaultValue = "5") int pageSize){
 		Page page = new Page();
-		page.setCurrentPage(0);
-		page.setPageSize(5);
 		page.setTotalUsers(userService.getUsers());
-		List<User> users = userService.listPageUsers(page);
+		page.setCurrentPage(currentPage);
+		page.setPageSize(pageSize);
+		List<User> users = userService.listPageUsers(currentPage*pageSize,pageSize);
 		page.setUsers(users);
 		model.addAttribute("users",page);
 		return "admin/adminHome";

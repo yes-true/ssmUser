@@ -2,13 +2,34 @@ package com.usertb.entity;
 
 import java.util.List;
 
+/**
+ * 分页工具类
+ */
 public class Page {
-	private int currentPage;    //当前页数
-	private int totalPages;       //总页数
-	private int totalUsers;      //总数据
-	private int pageSize;    //每页行数
-	private int nextPage;        //下一页
-	private int prefPage;       //前一页
+	/**
+	 * 当前页数
+	 */
+	private int currentPage;
+	/**
+	 * 总页数
+	 */
+	private int totalPages;
+	/**
+	 * 总数据
+	 */
+	private int totalUsers;
+	/**
+	 * 每页行数
+	 */
+	private int pageSize;
+	/**
+	 * 下一页
+	 */
+	private int nextPage;
+	/**
+	 * 前一页
+	 */
+	private int prefPage;
 	private List<User> users;
 
 	public List<User> getUsers() {
