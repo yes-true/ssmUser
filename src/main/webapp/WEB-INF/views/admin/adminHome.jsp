@@ -23,7 +23,7 @@
         </tr>
         <c:forEach var="u" items="${users.users}">
             <tr>
-                <td>${u.datum.photo}</td>
+                <td><img src="${pageContext.request.contextPath}/static/img/${u.datum.photo}" alt="头像" style="height: 50px;width: 50px"/></td>
                 <td>${u.id}</td>
                 <td>${u.menbername}</td>
                 <td>${u.email}</td>
