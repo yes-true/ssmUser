@@ -66,7 +66,7 @@
             window.location.href = pageContext+"/userList?cp="+0+"&ps="+pageSize;
         })
         /**
-         * 上一页
+         * 上一页1
          */
         $('#b2').click(function () {
             window.location.href = pageContext+"/userList?cp="+(currentPage-1)+"&ps="+pageSize;
