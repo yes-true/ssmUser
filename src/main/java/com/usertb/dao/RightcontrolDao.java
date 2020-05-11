@@ -11,6 +11,12 @@ import java.util.Map;
 
 public interface RightcontrolDao {
 
+	/**
+	 * type = 使用该类
+	 * method = 该类中的方法
+	 * @param map
+	 * @return
+	 */
 	@SelectProvider(type = RigDaoSqlProvider.class, method = "selectByUidOrAid")
 	Rightcontrol getRigByUidOrAid(Map<String,Integer> map);
 

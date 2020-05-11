@@ -7,7 +7,7 @@ import org.apache.ibatis.jdbc.SQL;
 import java.util.Map;
 
 public class RigDaoSqlProvider {
-
+	//多条件使用map 传值
 	public String selectByUidOrAid(final Map<String,Integer> map){
 		return new SQL(){
 			{

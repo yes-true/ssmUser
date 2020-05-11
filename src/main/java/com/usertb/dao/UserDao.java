@@ -27,9 +27,10 @@ public interface UserDao {
 	@Results(value = {
 		/**
 		 * 查询返回数据id为null时，添加id映射
+		 * javaType = 在java中的数据类型
 		 */
 		@Result(property = "id",column = "id",javaType = Integer.class),
-	   /* one to one
+	   /** one to one
 		* property 当前表与关联查询表与之对应的属性
 		* column 当前表 数据库的字段 多条件时(等号左侧对应java接口的参数，右侧的对应数据库字段名)
 		*/
@@ -79,6 +80,10 @@ public interface UserDao {
 	})
 	List<User> listUser(@Param(value = "currentPage") int currentPage,@Param(value = "pageSize") int pageSize);
 
+	/**
+	 * count(*)函数 总共多少条数据
+	 * @return
+	 */
 	@Select("select count(*) from tb_user")
 	int getUsers();
 
